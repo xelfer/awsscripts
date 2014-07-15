@@ -1,13 +1,20 @@
+#!/usr/local/bin/python
+import boto
 import boto.ec2
 
 conn = boto.ec2.connect_to_region('ap-southeast-2')
+
+#user_data = open('cassandra_install.sh')
+
+user_data = open('init.sh')
 
 # Create new Ubuntu 14.01 server instance with the security group 'web'
 conn.run_instances(
 	'ami-d33e5ae9',
 	key_name='aws2',
 	instance_type='t2.micro',
-	security_groups=['web'])
+	security_groups=['web'],
+	user_data=user_data.read())
 
 # Show what's running
 reservations = conn.get_all_reservations()
