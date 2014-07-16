@@ -4,9 +4,7 @@ import boto.ec2
 
 conn = boto.ec2.connect_to_region('ap-southeast-2')
 
-#user_data = open('cassandra_install.sh')
-
-user_data = open('init.sh')
+user_data = open('cassandra_install.sh')
 
 # Create new Ubuntu 14.01 server instance with the security group 'web'
 conn.run_instances(
