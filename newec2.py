@@ -1,6 +1,7 @@
 #!/usr/local/bin/python
 import boto
 import boto.ec2
+from pprint import pprint
 
 conn = boto.ec2.connect_to_region('ap-southeast-2')
 
@@ -17,7 +18,11 @@ conn.run_instances(
 # Show what's running
 reservations = conn.get_all_reservations()
 
-print "Instances running on ap-southeast-2:"
-for r in range(0, len(reservations)):
-	instances = reservations[r].instances
-	print instances,
+instances = [i for r in reservations for i in r.instances]
+for i in instances:
+    pprint(i.ip_address)
+
+#print "Instances running on ap-southeast-2:"
+#for r in range(0, len(reservations)):
+#	instances = reservations[r].instances
+#	print instances.__dict__
